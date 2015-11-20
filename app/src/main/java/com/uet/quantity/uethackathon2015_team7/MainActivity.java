@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         DetailFragment detail = new DetailFragment();
+        transaction.replace(R.id.container, detail);
+        transaction.addToBackStack(null);
+        transaction.commit();
 
         /*Intent service = new Intent(MainActivity.this, NotificationService.class);
         startService(service);*/

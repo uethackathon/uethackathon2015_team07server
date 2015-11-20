@@ -1,1 +1,1 @@
-# uethackathon2015_team07server
+uethackathon2015_team7
