@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 import com.uet.quantity.uethackathon2015_team7.R;
 
 /**
- * Created by James Crabby on 11/20/2015.
+ * Created by James Crabby on 11/21/2015.
  */
-public class DetailFragment extends Fragment {
+public class SettingFragment extends Fragment {
 
-    public static DetailFragment instance;
+    public static SettingFragment instance;
 
-    public static DetailFragment newInstance() {
+    public static SettingFragment newInstance() {
         if(instance == null) {
-            instance = new DetailFragment();
+            instance = new SettingFragment();
         }
         return instance;
     }
@@ -26,7 +26,7 @@ public class DetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_detail, container, false);
+        View v = inflater.inflate(R.layout.fragment_setting, container, false);
         return v;
     }
 }
