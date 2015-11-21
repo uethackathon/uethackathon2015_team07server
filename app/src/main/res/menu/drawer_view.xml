@@ -15,6 +15,10 @@
                 android:title="Xem cây lịch sử" />
             <item
                 android:id="@+id/navigation_item_3"
+                android:icon="@drawable/ic_quiz"
+                android:title="Hỏi đáp nhanh" />
+            <item
+                android:id="@+id/navigation_item_4"
                 android:icon="@drawable/ic_setting"
                 android:title="Cài đặt" />
         </group>

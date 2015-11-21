@@ -36,5 +36,7 @@ dependencies {
     compile('com.mikepenz:materialdrawer:4.4.9@aar') {
         transitive = true
     }
-
+    compile 'com.github.rey5137:material:1.2.1'
+    compile 'com.wdullaer:materialdatetimepicker:2.0.2'
+    compile 'it.neokree:MaterialTabs:0.11'
 }
