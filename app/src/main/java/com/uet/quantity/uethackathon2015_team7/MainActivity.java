@@ -19,6 +19,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.uet.quantity.uethackathon2015_team7.database.DatabaseHandler;
 import com.uet.quantity.uethackathon2015_team7.fragment.DetailFragment;
 import com.uet.quantity.uethackathon2015_team7.fragment.SettingFragment;
+import com.uet.quantity.uethackathon2015_team7.fragment.TreeFragment;
 import com.uet.quantity.uethackathon2015_team7.model.HistoryItem;
 import com.uet.quantity.uethackathon2015_team7.receiver.AlarmManagerBroadcastReceiver;
 import com.uet.quantity.uethackathon2015_team7.service.MyService;
@@ -62,11 +63,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
 
-
-        /*Intent service = new Intent(MainActivity.this, NotificationService.class);
-        startService(service);*/
-
-
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -85,12 +81,27 @@ public class MainActivity extends AppCompatActivity {
                         Fragment fragmentHome = DetailFragment.newInstance();
                         manager.popBackStack();
                         manager.beginTransaction().replace(R.id.container, fragmentHome).addToBackStack(null).commit();
+                        navigationView.getMenu().getItem(0).setChecked(true);
+                        navigationView.getMenu().getItem(1).setChecked(false);
+                        navigationView.getMenu().getItem(2).setChecked(false);
                         return true;
                     case R.id.navigation_item_2:
                         Toast.makeText(getApplicationContext(), "You Clicked On List Item 2", Toast.LENGTH_SHORT).show();
+                        Fragment fragmentTree = TreeFragment.newInstance();
+                        manager.popBackStack();
+                        manager.beginTransaction().replace(R.id.container, fragmentTree).addToBackStack(null).commit();
+                        navigationView.getMenu().getItem(0).setChecked(false);
+                        navigationView.getMenu().getItem(1).setChecked(true);
+                        navigationView.getMenu().getItem(2).setChecked(false);
+                        return true;
+                    case R.id.navigation_item_3:
+                        Toast.makeText(getApplicationContext(), "You Clicked On List Item 3", Toast.LENGTH_SHORT).show();
                         Fragment fragmentCate = SettingFragment.newInstance();
                         manager.popBackStack();
                         manager.beginTransaction().replace(R.id.container, fragmentCate).addToBackStack(null).commit();
+                        navigationView.getMenu().getItem(0).setChecked(false);
+                        navigationView.getMenu().getItem(1).setChecked(false);
+                        navigationView.getMenu().getItem(2).setChecked(true);
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
