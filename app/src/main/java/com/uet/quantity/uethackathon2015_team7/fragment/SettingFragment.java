@@ -41,6 +41,9 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
 
         tabHost = (MaterialTabHost) v.findViewById(R.id.materialTabHost);
         pager = (ViewPager) v.findViewById(R.id.pager);
+        tabHost = (MaterialTabHost) v.findViewById(R.id.tabHost);
+        pager = (ViewPager) v.findViewById(R.id.pager);
+        // init view pager
         pagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
         pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -50,6 +53,7 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
                 tabHost.setSelectedNavigationItem(position);
             }
         });
+        // insert all tabs from pagerAdapter data
         for (int i = 0; i < pagerAdapter.getCount(); i++) {
             tabHost.addTab(
                     tabHost.newTab()
@@ -76,22 +80,16 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
 
     }
 
-    private Drawable getIcon(int position) {
-        switch(position) {
-            case 0:
-                return getActivity().getResources().getDrawable(R.drawable.ic_time);
-            case 1:
-                return getActivity().getResources().getDrawable(R.drawable.ic_lock);
-        }
-        return null;
-    }
-
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
+
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
         }
+
         public Fragment getItem(int num) {
-            return new TimeSettingFragment();
+            if(num == 0)
+                return new TimeSettingFragment();
+            return new LockScreenSettingFragment();
         }
         @Override
         public int getCount() {
@@ -105,5 +103,18 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
                 default: return null;
             }
         }
+    }
+
+    /*
+    * It doesn't matter the color of the icons, but they must have solid colors
+    */
+    private Drawable getIcon(int position) {
+        switch(position) {
+            case 0:
+                return getActivity().getResources().getDrawable(R.drawable.ic_time);
+            case 1:
+                return getActivity().getResources().getDrawable(R.drawable.ic_lock);
+        }
+        return null;
     }
 }

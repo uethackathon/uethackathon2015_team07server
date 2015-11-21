@@ -1,6 +1,7 @@
 package com.uet.quantity.uethackathon2015_team7.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,9 @@ public class TimeSettingAdapter extends BaseAdapter {
         TextView tv_time_setting_reply = (TextView) convertView.findViewById(R.id.tv_time_setting_reply);
 
         TimeSettingEntity item = list_time_setting.get(position);
+        tv_time_setting_tm.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/HelveticaNeueLTStd-Lt-large-less-greater.otf"));
         tv_time_setting_tm.setText(item.getTime());
+        tv_time_setting_reply.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/HelveticaNeueLTStd-Lt-large-less-greater.otf"));
         tv_time_setting_reply.setText(item.getReply());
 
         return convertView;
