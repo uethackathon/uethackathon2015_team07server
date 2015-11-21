@@ -68,7 +68,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting single contact
-    public String getHistory(String day_month) {
+    public HistoryItem getHistory(String day_month) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_HISTORY, new String[] { KEY_ID,
@@ -78,7 +78,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         // return content
-        return cursor.getString(3);
+        return new HistoryItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), Boolean.parseBoolean(cursor.getString(4)));
     }
 
     public int getHistoryCount() {

@@ -11,6 +11,7 @@ import android.content.Intent;
 import com.uet.quantity.uethackathon2015_team7.MainActivity;
 import com.uet.quantity.uethackathon2015_team7.R;
 import com.uet.quantity.uethackathon2015_team7.database.DatabaseHandler;
+import com.uet.quantity.uethackathon2015_team7.model.HistoryItem;
 
 /**
  * Created by luongnguyen on 11/21/15.
@@ -19,37 +20,36 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
     final public static String ONE_TIME = "onetime";
     DatabaseHandler db;
+    HistoryItem item;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         db = new DatabaseHandler(context);
-        String msg;
 
         try {
-            msg = db.getHistory("01/01");
+            item  = db.getHistory("01/01");
+            Intent intent1 = new Intent(context, MainActivity.class);
+
+            PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent1, 0);
+
+            Notification mNotification = new Notification.Builder(context)
+
+                    .setContentTitle(item.getDay_month() + "/" + item.getYear())
+                    .setContentText(item.getContent())
+                    .setSmallIcon(R.drawable.ic_launcher)
+                    .setContentIntent(pIntent)
+                    .setStyle(new Notification.BigTextStyle().bigText(item.getContent()))
+                    .build();
+
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+            notificationManager.notify(0, mNotification);
         }catch (Exception e) {
-            msg = "error";
+          //  msg = "error";
         }
 
-
-
-        Intent intent1 = new Intent(context, MainActivity.class);
-
-        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent1, 0);
-
-        Notification mNotification = new Notification.Builder(context)
-
-                .setContentTitle("Today History")
-                .setContentText(msg)
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setContentIntent(pIntent)
-                .build();
-
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-
-        notificationManager.notify(0, mNotification);
     }
 
     public void SetAlarm(Context context)

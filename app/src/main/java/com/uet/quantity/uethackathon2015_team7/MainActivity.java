@@ -110,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
 
         startRepeatingTimer();
 
-        getData();
+        if(db.getHistoryCount() == 0){
+            getData();
+        }
 
     }
 
