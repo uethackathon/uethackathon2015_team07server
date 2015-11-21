@@ -219,4 +219,11 @@ public class LockScreenActivity extends Activity {
     public void onBackPressed() {
      //   super.onBackPressed();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(timeReceiver);
+        unregisterReceiver(batteryInfoReceiver);
+    }
 }
