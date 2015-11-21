@@ -10,6 +10,7 @@ import android.content.Intent;
 
 import com.uet.quantity.uethackathon2015_team7.MainActivity;
 import com.uet.quantity.uethackathon2015_team7.R;
+import com.uet.quantity.uethackathon2015_team7.database.DatabaseHandler;
 
 /**
  * Created by luongnguyen on 11/21/15.
@@ -17,9 +18,21 @@ import com.uet.quantity.uethackathon2015_team7.R;
 public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
     final public static String ONE_TIME = "onetime";
+    DatabaseHandler db;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        db = new DatabaseHandler(context);
+        String msg;
+
+        try {
+            msg = db.getHistory("01/01");
+        }catch (Exception e) {
+            msg = "error";
+        }
+
+
 
         Intent intent1 = new Intent(context, MainActivity.class);
 
@@ -28,7 +41,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         Notification mNotification = new Notification.Builder(context)
 
                 .setContentTitle("Today History")
-                .setContentText("Here's an awesome update for you!")
+                .setContentText(msg)
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentIntent(pIntent)
                 .build();
