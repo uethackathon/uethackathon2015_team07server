@@ -10,6 +10,8 @@ import android.content.Intent;
 
 import com.uet.quantity.uethackathon2015_team7.MainActivity;
 import com.uet.quantity.uethackathon2015_team7.R;
+import com.uet.quantity.uethackathon2015_team7.database.DatabaseHandler;
+import com.uet.quantity.uethackathon2015_team7.model.HistoryItem;
 
 /**
  * Created by luongnguyen on 11/21/15.
@@ -17,26 +19,37 @@ import com.uet.quantity.uethackathon2015_team7.R;
 public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
     final public static String ONE_TIME = "onetime";
+    DatabaseHandler db;
+    HistoryItem item;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Intent intent1 = new Intent(context, MainActivity.class);
+        db = new DatabaseHandler(context);
 
-        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent1, 0);
+        try {
+            item  = db.getHistory("01/01");
+            Intent intent1 = new Intent(context, MainActivity.class);
 
-        Notification mNotification = new Notification.Builder(context)
+            PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent1, 0);
 
-                .setContentTitle("Today History")
-                .setContentText("Here's an awesome update for you!")
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setContentIntent(pIntent)
-                .build();
+            Notification mNotification = new Notification.Builder(context)
 
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    .setContentTitle(item.getDay_month() + "/" + item.getYear())
+                    .setContentText(item.getContent())
+                    .setSmallIcon(R.drawable.ic_launcher)
+                    .setContentIntent(pIntent)
+                    .setStyle(new Notification.BigTextStyle().bigText(item.getContent()))
+                    .build();
+
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 
-        notificationManager.notify(0, mNotification);
+            notificationManager.notify(0, mNotification);
+        }catch (Exception e) {
+          //  msg = "error";
+        }
+
     }
 
     public void SetAlarm(Context context)

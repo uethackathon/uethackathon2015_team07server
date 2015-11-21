@@ -1,26 +1,39 @@
 package com.uet.quantity.uethackathon2015_team7;
 
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.uet.quantity.uethackathon2015_team7.database.DatabaseHandler;
 import com.uet.quantity.uethackathon2015_team7.fragment.DetailFragment;
 import com.uet.quantity.uethackathon2015_team7.fragment.SettingFragment;
+import com.uet.quantity.uethackathon2015_team7.model.HistoryItem;
+import com.uet.quantity.uethackathon2015_team7.receiver.AlarmManagerBroadcastReceiver;
+
+import org.json.JSONArray;
+
+import cz.msebera.android.httpclient.Header;
+
 
 public class MainActivity extends AppCompatActivity {
+
+
+    private AlarmManagerBroadcastReceiver alarm;
+
+    DatabaseHandler db;
+    public static final String url = "http://uethackathon07.herokuapp.com/api/histories";
+    Gson gson = new Gson();
+
 
     private DrawerLayout mDrawer;
     private NavigationView navigationView;
@@ -28,16 +41,28 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     public static MainActivity mainActivity;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        db = new DatabaseHandler(this);
+
+        alarm = new AlarmManagerBroadcastReceiver();
+
         manager = getSupportFragmentManager();
         mainActivity = this;
 
+
         toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
+
+
+        /*Intent service = new Intent(MainActivity.this, NotificationService.class);
+        startService(service);*/
+
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -83,5 +108,41 @@ public class MainActivity extends AppCompatActivity {
         DetailFragment home = new DetailFragment();
         manager.beginTransaction().replace(R.id.container, home).commit();
 
+        startRepeatingTimer();
+
+        if(db.getHistoryCount() == 0){
+            getData();
+        }
+
     }
+
+    public void startRepeatingTimer(){
+
+        alarm.SetAlarm(this);
+
+    }
+
+    public void getData(){
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(url, null, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+
+                for (int i =0; i < response.length(); i ++){
+
+                    try {
+                        HistoryItem item = gson.fromJson(response.get(i).toString(), HistoryItem.class);
+                        db.addHistory(item);
+                    }catch (Exception e){
+
+                    }
+
+                }
+            }
+        });
+
+    }
+
 }
