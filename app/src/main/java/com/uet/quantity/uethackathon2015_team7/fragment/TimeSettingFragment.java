@@ -1,27 +1,28 @@
 package com.uet.quantity.uethackathon2015_team7.fragment;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.rey.material.app.Dialog;
+import com.rey.material.app.DialogFragment;
+import com.rey.material.app.ThemeManager;
+import com.rey.material.app.TimePickerDialog;
 import com.uet.quantity.uethackathon2015_team7.R;
 import com.uet.quantity.uethackathon2015_team7.adapter.TimeSettingAdapter;
 import com.uet.quantity.uethackathon2015_team7.entity.TimeSettingEntity;
 
-import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TimeSettingFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TimeSettingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TimeSettingFragment extends Fragment {
 
     public static TimeSettingFragment instance;
@@ -49,7 +50,37 @@ public class TimeSettingFragment extends Fragment {
         adapter = new TimeSettingAdapter(getActivity(), list_time_setting, null);
         list.setAdapter(adapter);
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
+                Dialog.Builder builder = new TimePickerDialog.Builder(isLightTheme ? R.style.Material_App_Dialog_TimePicker_Light : R.style.Material_App_Dialog_TimePicker, 24, 00){
+                    @Override
+                    public void onPositiveActionClicked(DialogFragment fragment) {
+                        TimePickerDialog dialog = (TimePickerDialog)fragment.getDialog();
+                        Toast.makeText(getActivity(), "Time is " + dialog.getFormattedTime(SimpleDateFormat.getTimeInstance()), Toast.LENGTH_SHORT).show();
+                        String time = dialog.getFormattedTime(new SimpleDateFormat("HH:mm"));
+                        list_time_setting.get(position).setTime(time);
+                        adapter.notifyDataSetChanged();
+                        super.onPositiveActionClicked(fragment);
+                    }
+
+                    @Override
+                    public void onNegativeActionClicked(DialogFragment fragment) {
+                        Toast.makeText(getActivity(), "Cancelled" , Toast.LENGTH_SHORT).show();
+                        super.onNegativeActionClicked(fragment);
+                    }
+                };
+
+                builder.positiveAction("OK")
+                        .negativeAction("CANCEL");
+
+                DialogFragment fragment = DialogFragment.newInstance(builder);
+                fragment.show(getFragmentManager(), null);
+            }
+        });
+
         return v;
     }
-
 }

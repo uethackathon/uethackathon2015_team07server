@@ -79,9 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_item_1:
                         //Action Code Here
-                        Toast.makeText(getApplicationContext(), "You Clicked On List Item 1", Toast.LENGTH_SHORT).show();
                         Fragment fragmentHome = DetailFragment.newInstance();
-                        manager.popBackStack();
+                        //manager.popBackStack();
                         manager.beginTransaction().replace(R.id.container, fragmentHome).addToBackStack(null).commit();
                         navigationView.getMenu().getItem(0).setChecked(true);
                         navigationView.getMenu().getItem(1).setChecked(false);
@@ -89,9 +88,8 @@ public class MainActivity extends AppCompatActivity {
                         navigationView.getMenu().getItem(3).setChecked(false);
                         return true;
                     case R.id.navigation_item_2:
-                        Toast.makeText(getApplicationContext(), "You Clicked On List Item 2", Toast.LENGTH_SHORT).show();
                         Fragment fragmentTree = TreeFragment.newInstance();
-                        manager.popBackStack();
+                        //manager.popBackStack();
                         manager.beginTransaction().replace(R.id.container, fragmentTree).addToBackStack(null).commit();
                         navigationView.getMenu().getItem(0).setChecked(false);
                         navigationView.getMenu().getItem(1).setChecked(true);
@@ -99,9 +97,8 @@ public class MainActivity extends AppCompatActivity {
                         navigationView.getMenu().getItem(3).setChecked(false);
                         return true;
                     case R.id.navigation_item_3:
-                        Toast.makeText(getApplicationContext(), "You Clicked On List Item 3", Toast.LENGTH_SHORT).show();
                         Fragment fragmentQuiz = QuizFragment.newInstance();
-                        manager.popBackStack();
+                        //manager.popBackStack();
                         manager.beginTransaction().replace(R.id.container, fragmentQuiz).addToBackStack(null).commit();
                         navigationView.getMenu().getItem(0).setChecked(false);
                         navigationView.getMenu().getItem(1).setChecked(false);
@@ -109,9 +106,8 @@ public class MainActivity extends AppCompatActivity {
                         navigationView.getMenu().getItem(3).setChecked(false);
                         return true;
                     case R.id.navigation_item_4:
-                        Toast.makeText(getApplicationContext(), "You Clicked On List Item 4", Toast.LENGTH_SHORT).show();
                         Fragment fragmentCate = SettingFragment.newInstance();
-                        manager.popBackStack();
+                        //manager.popBackStack();
                         manager.beginTransaction().replace(R.id.container, fragmentCate).addToBackStack(null).commit();
                         navigationView.getMenu().getItem(0).setChecked(false);
                         navigationView.getMenu().getItem(1).setChecked(false);
@@ -198,4 +194,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        mDrawer.closeDrawers();
+        super.onBackPressed();
+    }
 }

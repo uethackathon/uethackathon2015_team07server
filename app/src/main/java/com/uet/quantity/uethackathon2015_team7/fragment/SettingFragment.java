@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.uet.quantity.uethackathon2015_team7.R;
+
+import java.util.ArrayList;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
@@ -41,10 +44,12 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
 
         tabHost = (MaterialTabHost) v.findViewById(R.id.materialTabHost);
         pager = (ViewPager) v.findViewById(R.id.pager);
-        tabHost = (MaterialTabHost) v.findViewById(R.id.tabHost);
         pager = (ViewPager) v.findViewById(R.id.pager);
         // init view pager
-        pagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        ArrayList<Fragment> list_setting = new ArrayList<>();
+        list_setting.add(TimeSettingFragment.newInstance());
+        list_setting.add(LockScreenSettingFragment.newInstance());
+        pagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), list_setting);
         pager.setAdapter(pagerAdapter);
         pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -80,20 +85,21 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
 
     }
 
-    private class ViewPagerAdapter extends FragmentStatePagerAdapter {
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        public ViewPagerAdapter(FragmentManager fm) {
+        ArrayList<Fragment> list_setting_fragment;
+
+        public ViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> list_setting_fragment) {
             super(fm);
+            this.list_setting_fragment = list_setting_fragment;
         }
 
         public Fragment getItem(int num) {
-            if(num == 0)
-                return new TimeSettingFragment();
-            return new LockScreenSettingFragment();
+            return list_setting_fragment.get(num);
         }
         @Override
         public int getCount() {
-            return 2;
+            return list_setting_fragment.size();
         }
         @Override
         public CharSequence getPageTitle(int position) {
