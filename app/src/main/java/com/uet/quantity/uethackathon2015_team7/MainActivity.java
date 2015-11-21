@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
