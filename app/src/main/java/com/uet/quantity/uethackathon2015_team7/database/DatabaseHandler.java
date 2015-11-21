@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_HISTORY + "("
-                + KEY_ID + " INTEGER," + KEY_YEAR + " TEXT,"
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_YEAR + " TEXT,"
                 + KEY_DAY_MONTH + " TEXT," + KEY_CONTENT + " TEXT," + KEY_MAIN_EVENT + " BOOLEAN" +  ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
