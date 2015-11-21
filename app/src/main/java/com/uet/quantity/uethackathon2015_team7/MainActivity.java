@@ -1,5 +1,7 @@
 package com.uet.quantity.uethackathon2015_team7;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,7 @@ import com.uet.quantity.uethackathon2015_team7.fragment.SettingFragment;
 import com.uet.quantity.uethackathon2015_team7.fragment.TreeFragment;
 import com.uet.quantity.uethackathon2015_team7.model.HistoryItem;
 import com.uet.quantity.uethackathon2015_team7.receiver.AlarmManagerBroadcastReceiver;
+import com.uet.quantity.uethackathon2015_team7.service.MyService;
 
 import org.json.JSONArray;
 
@@ -125,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
             getData();
         }
 
+        Intent intent = new Intent(MainActivity.this, MyService.class);
+        startService(intent);
+
     }
 
     public void startRepeatingTimer(){
@@ -137,6 +143,25 @@ public class MainActivity extends AppCompatActivity {
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, null, new JsonHttpResponseHandler(){
+
+            ProgressDialog dialog;
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                dialog = new ProgressDialog(MainActivity.this);
+                dialog.setMessage("Loading data");
+                dialog.show();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                if(dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
@@ -151,6 +176,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 }
+
+
             }
         });
 

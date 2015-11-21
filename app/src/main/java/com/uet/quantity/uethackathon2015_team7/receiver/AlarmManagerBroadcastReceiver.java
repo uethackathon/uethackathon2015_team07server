@@ -28,14 +28,14 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         db = new DatabaseHandler(context);
 
         try {
-            item  = db.getHistory("01/01");
+            item  = db.getHistory("14/01");
             Intent intent1 = new Intent(context, MainActivity.class);
 
             PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent1, 0);
 
             Notification mNotification = new Notification.Builder(context)
 
-                    .setContentTitle(item.getDay_month() + "/" + item.getYear())
+                    .setContentTitle(item.getDay_month())
                     .setContentText(item.getContent())
                     .setSmallIcon(R.drawable.ic_launcher)
                     .setContentIntent(pIntent)
