@@ -72,25 +72,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
-                .addProfiles(
-                        new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.ic_acc_profile))
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
-                .build();
-
-//Now create your drawer and pass the AccountHeader.Result
-        new DrawerBuilder()
-                .withAccountHeader(headerResult)
-        .build();
-
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
                 MainActivity.this,  mDrawer, toolbar,
                 R.string.app_name, R.string.action_settings
