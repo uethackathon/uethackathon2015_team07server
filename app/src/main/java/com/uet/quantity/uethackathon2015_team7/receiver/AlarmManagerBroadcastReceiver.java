@@ -28,7 +28,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         db = new DatabaseHandler(context);
 
         try {
-            item  = db.getHistory("14/01");
+            item  = db.getHistory("22/11");
             Intent intent1 = new Intent(context, MainActivity.class);
 
             PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent1, 0);

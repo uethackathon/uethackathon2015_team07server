@@ -87,21 +87,10 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
         buttonC.setTypeface(typeface2);
         buttonD.setTypeface(typeface2);
 
+        txtNumQuest.setText("Question " + numQuest);
 
-        int random = getRandomNumber();
-        HistoryItem item = db.get(random);
-        question.setText(item.getContent());
-        answer = getRandomAnwser();
 
-        if(answer == 1){
-            buttonA.setText(item.getDay_month());
-        }else if(answer == 2){
-            buttonB.setText(item.getDay_month());
-        }else if(answer == 3){
-            buttonC.setText(item.getDay_month());
-        }else if(answer == 4){
-            buttonD.setText(item.getDay_month());
-        }
+       getNewQuestion();
 
         next.setOnClickListener(this);
         buttonA.setOnClickListener(this);
@@ -114,32 +103,54 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
         return v;
     }
 
+    public void getNewQuestion(){
+        int random = getRandomNumber();
+        HistoryItem item = db.get(random);
+        HistoryItem item1 = db.get(random + 5);
+        HistoryItem item2 = db.get(random + 10);
+        HistoryItem item3 = db.get(random + 15);
+        question.setText(item.getContent());
+        answer = getRandomAnwser();
+
+        if(answer == 1){
+            buttonA.setText(item.getDay_month());
+            buttonB.setText(item1.getDay_month());
+            buttonC.setText(item2.getDay_month());
+            buttonD.setText(item3.getDay_month());
+        }else if(answer == 2){
+            buttonB.setText(item.getDay_month());
+            buttonA.setText(item1.getDay_month());
+            buttonC.setText(item2.getDay_month());
+            buttonD.setText(item3.getDay_month());
+        }else if(answer == 3){
+            buttonA.setText(item2.getDay_month());
+            buttonB.setText(item1.getDay_month());
+            buttonD.setText(item3.getDay_month());
+            buttonC.setText(item.getDay_month());
+        }else if(answer == 4){
+            buttonD.setText(item.getDay_month());
+            buttonA.setText(item3.getDay_month());
+            buttonB.setText(item1.getDay_month());
+            buttonC.setText(item2.getDay_month());
+        }
+
+    }
+
     @Override
     public void onClick(View view) {
         if(view == next){
+            setDefault();
             numQuest ++;
             txtNumQuest.setText("Question "+ numQuest);
             statePlay = true;
             result.setVisibility(View.GONE);
-            int random = getRandomNumber();
-            HistoryItem item = db.get(random);
-            question.setText(item.getContent());
 
-            answer = getRandomAnwser();
-
-            if(answer == 1){
-                buttonA.setText(item.getDay_month());
-            }else if(answer == 2){
-                buttonB.setText(item.getDay_month());
-            }else if(answer == 3){
-                buttonC.setText(item.getDay_month());
-            }else if(answer == 4){
-                buttonD.setText(item.getDay_month());
-            }
+            getNewQuestion();
         }
 
         if(view == buttonA){
             if(statePlay == true){
+                changeColorAnswer();
                 statePlay = false;
                 next.setVisibility(View.VISIBLE);
                 result.setVisibility(View.VISIBLE);
@@ -154,6 +165,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
 
         if(view == buttonB){
             if(statePlay == true){
+                changeColorAnswer();
                 statePlay = false;
                 next.setVisibility(View.VISIBLE);
                 result.setVisibility(View.VISIBLE);
@@ -167,6 +179,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
 
         if(view == buttonC){
             if(statePlay == true){
+                changeColorAnswer();
                 statePlay = false;
                 next.setVisibility(View.VISIBLE);
                 result.setVisibility(View.VISIBLE);
@@ -180,6 +193,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
 
         if(view == buttonD){
             if(statePlay == true){
+                changeColorAnswer();
                 statePlay = false;
                 next.setVisibility(View.VISIBLE);
                 result.setVisibility(View.VISIBLE);
@@ -202,6 +216,25 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
     public int getRandomAnwser(){
         Random rand = new Random();
         return  rand.nextInt(4) + 1;
+    }
+
+    public void changeColorAnswer(){
+        if(answer == 1){
+            buttonA.setBackground(getResources().getDrawable(R.drawable.rounded_button1));
+        } else if (answer == 2){
+            buttonB.setBackground(getResources().getDrawable(R.drawable.rounded_button1));
+        }else if (answer == 3){
+            buttonC.setBackground(getResources().getDrawable(R.drawable.rounded_button1));
+        }else if (answer == 4){
+            buttonD.setBackground(getResources().getDrawable(R.drawable.rounded_button1));
+        }
+    }
+
+    public void setDefault(){
+        buttonA.setBackground(getResources().getDrawable(R.drawable.rounded_button));
+        buttonB.setBackground(getResources().getDrawable(R.drawable.rounded_button));
+        buttonC.setBackground(getResources().getDrawable(R.drawable.rounded_button));
+        buttonD.setBackground(getResources().getDrawable(R.drawable.rounded_button));
     }
 
 }
