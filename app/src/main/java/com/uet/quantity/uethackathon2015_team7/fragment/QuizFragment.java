@@ -24,10 +24,12 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
     TextView txtNumQuest ;
     TextView question ;
     TextView result ;
+    TextView txtScore ;
     Button buttonA ;
     Button buttonB ;
     Button buttonC ;
     Button buttonD ;
+    int score;
 
     DatabaseHandler db;
     int numQuest = 1;
@@ -75,11 +77,13 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
         buttonC = (Button) v.findViewById(R.id.buttonC);
         buttonD = (Button) v.findViewById(R.id.buttonD);
         next = (ImageView) v.findViewById(R.id.next_question);
+        txtScore = (TextView) v.findViewById(R.id.score);
 
 
 
         quizGame.setTypeface(typeface1);
         txtNumQuest.setTypeface(typeface3);
+        txtScore.setTypeface(typeface3);
         question.setTypeface(typeface2);
         result.setTypeface(typeface1);
         buttonA.setTypeface(typeface2);
@@ -88,6 +92,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
         buttonD.setTypeface(typeface2);
 
         txtNumQuest.setText("Question " + numQuest);
+        txtScore.setText("Score: "+ score);
 
 
        getNewQuestion();
@@ -156,6 +161,8 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 result.setVisibility(View.VISIBLE);
 
                 if(answer == 1){
+                    score +=10;
+                    txtScore.setText("Score: "+ score);
                     result.setText("Đáp án chính xác ");
                 }else{
                     result.setText("Đáp án sai");
@@ -170,6 +177,8 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 next.setVisibility(View.VISIBLE);
                 result.setVisibility(View.VISIBLE);
                 if(answer == 2){
+                    score +=10;
+                    txtScore.setText("Score: "+ score);
                     result.setText("Đáp án chính xác ");
                 }else{
                     result.setText("Đáp án sai");
@@ -184,6 +193,8 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 next.setVisibility(View.VISIBLE);
                 result.setVisibility(View.VISIBLE);
                 if(answer == 3){
+                    score +=10;
+                    txtScore.setText("Score: "+ score);
                     result.setText("Đáp án chính xác ");
                 }else{
                     result.setText("Đáp án sai");
@@ -199,6 +210,8 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 result.setVisibility(View.VISIBLE);
 
                 if(answer == 4){
+                    score +=10;
+                    txtScore.setText("Score: "+ score);
                     result.setText("Đáp án chính xác ");
                 }else{
                     result.setText("Đáp án sai");

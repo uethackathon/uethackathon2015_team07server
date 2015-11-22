@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.uet.quantity.uethackathon2015_team7.database.DatabaseHandler;
@@ -57,6 +58,7 @@ public class LockScreenActivity extends Activity {
     ImageView close;
     DatabaseHandler db;
     HistoryItem item;
+    RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,7 @@ public class LockScreenActivity extends Activity {
         txvLayoutLockscreenNetwork = (TextView)findViewById(R.id.txv_layout_lockscreen_network);
         txvLayoutLockscreenBettery = (TextView)findViewById(R.id.txv_layout_lockscreen_bettery);
         imgLayoutLockscreenBettery = (ImageView)findViewById(R.id.img_layout_lockscreen_bettery);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relative_lockscreen);
         historyNew = (TextView) findViewById(R.id.history_new);
         close = (ImageView) findViewById(R.id.close);
 
@@ -92,7 +95,7 @@ public class LockScreenActivity extends Activity {
         checkTime();
         checkBattery();
 
-        close.setOnClickListener(new View.OnClickListener() {
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LockScreenActivity.this.finish();
