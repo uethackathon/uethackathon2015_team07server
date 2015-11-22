@@ -10,11 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.uet.quantity.uethackathon2015_team7.R;
-
-import java.util.ArrayList;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
@@ -41,8 +38,7 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_setting, container, false);
-
-        Toast.makeText(getActivity(), "onCreateView", Toast.LENGTH_SHORT).show();
+        
 
         tabHost = (MaterialTabHost) v.findViewById(R.id.materialTabHost);
         pager = (ViewPager) v.findViewById(R.id.pager);
