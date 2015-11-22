@@ -1,6 +1,7 @@
 package com.uet.quantity.uethackathon2015_team7.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,7 @@ public class TimeSettingAdapter extends BaseAdapter {
             inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.time_setting_item, parent, false);
+
         TextView tv_time_setting_tm = (TextView) convertView.findViewById(R.id.tv_time_setting_tm);
         Switch switch_time_setting = (Switch) convertView.findViewById(R.id.switch_time_setting);
         TextView tv_time_setting_reply = (TextView) convertView.findViewById(R.id.tv_time_setting_reply);

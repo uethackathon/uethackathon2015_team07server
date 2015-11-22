@@ -6,11 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.uet.quantity.uethackathon2015_team7.R;
 
@@ -42,14 +42,12 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_setting, container, false);
 
+        Toast.makeText(getActivity(), "onCreateView", Toast.LENGTH_SHORT).show();
+
         tabHost = (MaterialTabHost) v.findViewById(R.id.materialTabHost);
         pager = (ViewPager) v.findViewById(R.id.pager);
-        pager = (ViewPager) v.findViewById(R.id.pager);
         // init view pager
-        ArrayList<Fragment> list_setting = new ArrayList<>();
-        list_setting.add(TimeSettingFragment.newInstance());
-        list_setting.add(LockScreenSettingFragment.newInstance());
-        pagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), list_setting);
+        pagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
         pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -87,19 +85,21 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        ArrayList<Fragment> list_setting_fragment;
-
-        public ViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> list_setting_fragment) {
+        public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
-            this.list_setting_fragment = list_setting_fragment;
         }
 
-        public Fragment getItem(int num) {
-            return list_setting_fragment.get(num);
+        public Fragment getItem(int position) {
+            if (position == 0)
+            {
+                return TimeSettingFragment.newInstance();
+            }
+            else
+                return LockScreenSettingFragment.newInstance();
         }
         @Override
         public int getCount() {
-            return list_setting_fragment.size();
+            return 2;
         }
         @Override
         public CharSequence getPageTitle(int position) {
@@ -108,6 +108,11 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
                 case 1: return "tab 2";
                 default: return null;
             }
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
     }
 

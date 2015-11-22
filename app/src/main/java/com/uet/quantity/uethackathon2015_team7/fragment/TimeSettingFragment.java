@@ -1,8 +1,10 @@
 package com.uet.quantity.uethackathon2015_team7.fragment;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ public class TimeSettingFragment extends Fragment {
     private ListView list;
     private TimeSettingAdapter adapter;
     private ArrayList<TimeSettingEntity> list_time_setting;
+    private SharedPreferences sharedPreferences;
 
     public static TimeSettingFragment newInstance() {
         if(instance == null) {
@@ -43,10 +46,14 @@ public class TimeSettingFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_time_setting, container, false);
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String time1 = sharedPreferences.getString("pref_time_1", "6:00");
+        String time2 = sharedPreferences.getString("pref_time_2", "21:00");
+
         list = (ListView) v.findViewById(R.id.list_time_setting);
         list_time_setting = new ArrayList<>();
-        list_time_setting.add(new TimeSettingEntity("Hàng ngày", true, "6:00"));
-        list_time_setting.add(new TimeSettingEntity("Hàng ngày", true, "21:00"));
+        list_time_setting.add(new TimeSettingEntity("Hàng ngày", true, time1));
+        list_time_setting.add(new TimeSettingEntity("Hàng ngày", true, time2));
         adapter = new TimeSettingAdapter(getActivity(), list_time_setting, null);
         list.setAdapter(adapter);
 
@@ -55,26 +62,29 @@ public class TimeSettingFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 boolean isLightTheme = ThemeManager.getInstance().getCurrentTheme() == 0;
-                Dialog.Builder builder = new TimePickerDialog.Builder(isLightTheme ? R.style.Material_App_Dialog_TimePicker_Light : R.style.Material_App_Dialog_TimePicker, 24, 00){
+                Dialog.Builder builder = new TimePickerDialog.Builder(isLightTheme ? R.style.Material_App_Dialog_TimePicker_Light : R.style.Material_App_Dialog_TimePicker, 24, 00) {
                     @Override
                     public void onPositiveActionClicked(DialogFragment fragment) {
-                        TimePickerDialog dialog = (TimePickerDialog)fragment.getDialog();
-                        Toast.makeText(getActivity(), "Time is " + dialog.getFormattedTime(SimpleDateFormat.getTimeInstance()), Toast.LENGTH_SHORT).show();
+                        TimePickerDialog dialog = (TimePickerDialog) fragment.getDialog();
                         String time = dialog.getFormattedTime(new SimpleDateFormat("HH:mm"));
                         list_time_setting.get(position).setTime(time);
                         adapter.notifyDataSetChanged();
+                        if (position == 1) {
+                            sharedPreferences.edit().putString("pref_time_1", time).commit();
+                        } else {
+                            sharedPreferences.edit().putString("pref_time_2", time).commit();
+                        }
                         super.onPositiveActionClicked(fragment);
                     }
 
                     @Override
                     public void onNegativeActionClicked(DialogFragment fragment) {
-                        Toast.makeText(getActivity(), "Cancelled" , Toast.LENGTH_SHORT).show();
                         super.onNegativeActionClicked(fragment);
                     }
                 };
 
-                builder.positiveAction("OK")
-                        .negativeAction("CANCEL");
+                builder.positiveAction("Đồng ý")
+                        .negativeAction("Thoát");
 
                 DialogFragment fragment = DialogFragment.newInstance(builder);
                 fragment.show(getFragmentManager(), null);
