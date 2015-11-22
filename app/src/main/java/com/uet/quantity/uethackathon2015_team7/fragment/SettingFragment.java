@@ -38,7 +38,7 @@ public class SettingFragment extends Fragment implements MaterialTabListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_setting, container, false);
-        
+
 
         tabHost = (MaterialTabHost) v.findViewById(R.id.materialTabHost);
         pager = (ViewPager) v.findViewById(R.id.pager);
