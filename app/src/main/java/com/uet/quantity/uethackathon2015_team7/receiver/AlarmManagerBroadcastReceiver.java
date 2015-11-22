@@ -63,8 +63,8 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
         Calendar calendar = Calendar.getInstance();
 
-        calendar.set(Calendar.HOUR_OF_DAY, 6); // For 1 PM or 2 PM
-        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 9); // For 1 PM or 2 PM
+        calendar.set(Calendar.MINUTE, 1);
         calendar.set(Calendar.SECOND, 0);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY , pi);
     }

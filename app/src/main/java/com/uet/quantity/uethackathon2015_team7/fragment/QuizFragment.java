@@ -92,7 +92,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
         buttonD.setTypeface(typeface2);
 
         txtNumQuest.setText("Question " + numQuest);
-        txtScore.setText("Score: "+ score);
+        txtScore.setText("Score "+ score);
 
 
        getNewQuestion();
@@ -162,7 +162,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
 
                 if(answer == 1){
                     score +=10;
-                    txtScore.setText("Score: "+ score);
+                    txtScore.setText("Score "+ score);
                     result.setText("Đáp án chính xác ");
                 }else{
                     result.setText("Đáp án sai");
@@ -178,7 +178,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 result.setVisibility(View.VISIBLE);
                 if(answer == 2){
                     score +=10;
-                    txtScore.setText("Score: "+ score);
+                    txtScore.setText("Score "+ score);
                     result.setText("Đáp án chính xác ");
                 }else{
                     result.setText("Đáp án sai");
@@ -194,7 +194,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 result.setVisibility(View.VISIBLE);
                 if(answer == 3){
                     score +=10;
-                    txtScore.setText("Score: "+ score);
+                    txtScore.setText("Score "+ score);
                     result.setText("Đáp án chính xác ");
                 }else{
                     result.setText("Đáp án sai");
@@ -211,7 +211,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
 
                 if(answer == 4){
                     score +=10;
-                    txtScore.setText("Score: "+ score);
+                    txtScore.setText("Score "+ score);
                     result.setText("Đáp án chính xác ");
                 }else{
                     result.setText("Đáp án sai");

@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Score : 0"
+                android:text="Score 0"
                 android:textSize="30dp" />
 
         </LinearLayout>
