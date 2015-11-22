@@ -2,6 +2,7 @@ package com.uet.quantity.uethackathon2015_team7;
 
 import android.app.ProgressDialog;
 import android.appwidget.AppWidgetManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -17,6 +19,9 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.rey.material.app.Dialog;
+import com.rey.material.app.DialogFragment;
+import com.rey.material.app.SimpleDialog;
 import com.uet.quantity.uethackathon2015_team7.database.DatabaseHandler;
 import com.uet.quantity.uethackathon2015_team7.fragment.DetailFragment;
 import com.uet.quantity.uethackathon2015_team7.fragment.QuizFragment;
@@ -213,8 +218,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         mDrawer.closeDrawers();
-        if(manager.getBackStackEntryCount() == 1)
-            finish();
+        if(manager.getBackStackEntryCount() == 1) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
+            builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.setMessage("Thoát ứng dụng ?");
+            builder.show();
+        }
         super.onBackPressed();
     }
 }
