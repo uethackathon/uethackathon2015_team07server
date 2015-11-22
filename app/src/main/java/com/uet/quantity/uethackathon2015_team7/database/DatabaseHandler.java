@@ -81,6 +81,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return new HistoryItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), Boolean.parseBoolean(cursor.getString(4)));
     }
 
+    // Getting single contact
+    public HistoryItem get(int i) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_HISTORY, new String[] { KEY_ID,
+                        KEY_YEAR, KEY_DAY_MONTH, KEY_CONTENT, KEY_MAIN_EVENT }, KEY_ID + "=?",
+                new String[] {i + ""}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        // return content
+        return new HistoryItem(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), Boolean.parseBoolean(cursor.getString(4)));
+    }
+
     public int getHistoryCount() {
         String countQuery = "SELECT  * FROM " + TABLE_HISTORY;
         SQLiteDatabase db = getReadableDatabase();

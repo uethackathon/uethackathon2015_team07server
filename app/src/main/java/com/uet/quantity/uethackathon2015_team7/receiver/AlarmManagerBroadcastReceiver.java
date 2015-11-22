@@ -13,6 +13,8 @@ import com.uet.quantity.uethackathon2015_team7.R;
 import com.uet.quantity.uethackathon2015_team7.database.DatabaseHandler;
 import com.uet.quantity.uethackathon2015_team7.model.HistoryItem;
 
+import java.util.Calendar;
+
 /**
  * Created by luongnguyen on 11/21/15.
  */
@@ -28,7 +30,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         db = new DatabaseHandler(context);
 
         try {
-            item  = db.getHistory("14/01");
+            item  = db.getHistory("22/11");
             Intent intent1 = new Intent(context, MainActivity.class);
 
             PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent1, 0);
@@ -58,8 +60,13 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
         intent.putExtra(ONE_TIME, Boolean.FALSE);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        //After after 5 seconds
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 , pi);
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.HOUR_OF_DAY, 9); // For 1 PM or 2 PM
+        calendar.set(Calendar.MINUTE, 1);
+        calendar.set(Calendar.SECOND, 0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY , pi);
     }
 
     public void CancelAlarm(Context context)

@@ -1,10 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.uet.quantity.uethackathon2015_team7.fragment.LockScreenSettingFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:layout_margin="20dp">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <TextView
+        android:id="@+id/tv_lock_setting_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Bật/Tắt màn hình khóa"
+        android:textSize="17sp"
+        android:textColor="@color/grey"/>
 
-</FrameLayout>
+    <com.rey.material.widget.Switch
+        android:id="@+id/switch_lock_setting"
+        style="@style/Material.Widget.Switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>

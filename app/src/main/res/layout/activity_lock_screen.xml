@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg3"
+    android:background="@drawable/lockscreen3"
+    android:id="@+id/relative_lockscreen"
     >
 
 
@@ -98,6 +99,7 @@
                 android:textColor="#ffffffff"
                 android:textSize="24.0sp"
                 android:gravity="center"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         </RelativeLayout>
@@ -110,6 +112,7 @@
         android:layout_alignParentBottom="true"
         android:paddingBottom="20dp"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         />
 
 

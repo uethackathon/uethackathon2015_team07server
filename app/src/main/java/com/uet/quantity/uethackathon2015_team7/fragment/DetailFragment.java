@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.rey.material.widget.ProgressView;
 import com.uet.quantity.uethackathon2015_team7.R;
 
 import java.io.InputStream;
@@ -22,6 +23,8 @@ import java.io.InputStream;
 public class DetailFragment extends Fragment {
 
     public static DetailFragment instance;
+    ImageView img_infographic;
+    ProgressView progress;
     private final String URL = "http://uethackathon07.herokuapp.com/api/pictures/21_11";
 
     public static DetailFragment newInstance() {
@@ -35,7 +38,8 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
-        ImageView img_infographic = (ImageView) v.findViewById(R.id.img_infographic);
+        img_infographic = (ImageView) v.findViewById(R.id.img_infographic);
+        progress = (ProgressView) v.findViewById(R.id.detail_progress);
         new DownloadImageTask(img_infographic).execute(URL);
 
         return v;
@@ -63,6 +67,8 @@ public class DetailFragment extends Fragment {
 
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
+            progress.setVisibility(View.GONE);
+            img_infographic.setVisibility(View.VISIBLE);
         }
     }
 }

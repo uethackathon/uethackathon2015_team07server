@@ -4,18 +4,11 @@
     android:layout_height="match_parent"
     android:id="@+id/widget_rlt">
 
-    <ProgressBar
-        android:id="@+id/widget_progress"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/progress"/>
-
     <ImageView
         android:id="@+id/widget_img"
         android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/tree"
+        android:layout_height="125dp"
+        android:background="@drawable/tree25"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>
