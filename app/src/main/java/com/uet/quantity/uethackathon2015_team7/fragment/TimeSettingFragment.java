@@ -1,18 +1,14 @@
 package com.uet.quantity.uethackathon2015_team7.fragment;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.rey.material.app.Dialog;
 import com.rey.material.app.DialogFragment;
@@ -70,7 +66,9 @@ public class TimeSettingFragment extends Fragment {
                         list_time_setting.get(position).setTime(time);
                         adapter.notifyDataSetChanged();
                         if (position == 1) {
+
                             sharedPreferences.edit().putString("pref_time_1", time).commit();
+
                         } else {
                             sharedPreferences.edit().putString("pref_time_2", time).commit();
                         }

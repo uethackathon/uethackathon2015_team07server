@@ -1,9 +1,11 @@
 
 package com.uet.quantity.uethackathon2015_team7.fragment;
 
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
     Button buttonC ;
     Button buttonD ;
     int score;
+    boolean showResult = false;
 
     DatabaseHandler db;
     int numQuest = 1;
@@ -151,13 +154,15 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
             result.setVisibility(View.GONE);
 
             getNewQuestion();
+            if(numQuest == 5) {
+                next.setVisibility(View.GONE);
+            }
         }
 
         if(view == buttonA){
             if(statePlay == true){
                 changeColorAnswer();
                 statePlay = false;
-                next.setVisibility(View.VISIBLE);
                 result.setVisibility(View.VISIBLE);
 
                 if(answer == 1){
@@ -167,6 +172,10 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 }else{
                     result.setText("Đáp án sai");
                 }
+
+                if(numQuest == 5) {
+                    showDialogResult();
+                }
             }
         }
 
@@ -174,7 +183,6 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
             if(statePlay == true){
                 changeColorAnswer();
                 statePlay = false;
-                next.setVisibility(View.VISIBLE);
                 result.setVisibility(View.VISIBLE);
                 if(answer == 2){
                     score +=10;
@@ -183,6 +191,10 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 }else{
                     result.setText("Đáp án sai");
                 }
+
+                if(numQuest == 5) {
+                    showDialogResult();
+                }
             }
         }
 
@@ -190,7 +202,6 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
             if(statePlay == true){
                 changeColorAnswer();
                 statePlay = false;
-                next.setVisibility(View.VISIBLE);
                 result.setVisibility(View.VISIBLE);
                 if(answer == 3){
                     score +=10;
@@ -199,6 +210,10 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 }else{
                     result.setText("Đáp án sai");
                 }
+
+                if(numQuest == 5) {
+                    showDialogResult();
+                }
             }
         }
 
@@ -206,7 +221,6 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
             if(statePlay == true){
                 changeColorAnswer();
                 statePlay = false;
-                next.setVisibility(View.VISIBLE);
                 result.setVisibility(View.VISIBLE);
 
                 if(answer == 4){
@@ -215,6 +229,10 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                     result.setText("Đáp án chính xác ");
                 }else{
                     result.setText("Đáp án sai");
+                }
+
+                if(numQuest == 5) {
+                    showDialogResult();
                 }
             }
         }
@@ -248,6 +266,27 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
         buttonB.setBackground(getResources().getDrawable(R.drawable.rounded_button));
         buttonC.setBackground(getResources().getDrawable(R.drawable.rounded_button));
         buttonD.setBackground(getResources().getDrawable(R.drawable.rounded_button));
+    }
+
+    public void showDialogResult(){
+
+        if(showResult == false) {
+            showResult = true;
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+            builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            
+
+            builder.setMessage("Bạn được " + score+ " điểm ");
+            builder.show();
+        }
+
+
     }
 
 }

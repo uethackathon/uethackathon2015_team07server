@@ -1,24 +1,27 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="30dp"
-    android:layout_margin="20dp">
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:layout_margin="20dp"
+    android:orientation="horizontal">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/tv_lock_setting_desc"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:text="Bật/Tắt màn hình khóa"
         android:textSize="17sp"
+        android:layout_weight="2"
         android:textColor="@color/grey"/>
 
     <com.rey.material.widget.Switch
         android:id="@+id/switch_lock_setting"
         style="@style/Material.Widget.Switch"
         android:layout_width="wrap_content"
+        android:layout_weight="0"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
+     />
 
-</RelativeLayout>
+</LinearLayout>
