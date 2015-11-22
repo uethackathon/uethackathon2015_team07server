@@ -1,6 +1,7 @@
 package com.uet.quantity.uethackathon2015_team7;
 
 import android.app.ProgressDialog;
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         manager = getSupportFragmentManager();
         mainActivity = this;
 
+        Intent intent1 = getIntent();
+        int widgetID = intent1.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
 
         toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
@@ -130,8 +133,21 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         mDrawerToggle.syncState();
 
-        DetailFragment home = new DetailFragment();
-        manager.beginTransaction().replace(R.id.container, home).commit();
+        if(widgetID == -1) {
+            DetailFragment home = new DetailFragment();
+            manager.beginTransaction().replace(R.id.container, home).addToBackStack(null).commit();
+            navigationView.getMenu().getItem(0).setChecked(true);
+            navigationView.getMenu().getItem(1).setChecked(false);
+            navigationView.getMenu().getItem(2).setChecked(false);
+            navigationView.getMenu().getItem(3).setChecked(false);
+        } else {
+            TreeFragment home = new TreeFragment();
+            manager.beginTransaction().replace(R.id.container, home).addToBackStack(null).commit();
+            navigationView.getMenu().getItem(0).setChecked(false);
+            navigationView.getMenu().getItem(1).setChecked(true);
+            navigationView.getMenu().getItem(2).setChecked(false);
+            navigationView.getMenu().getItem(3).setChecked(false);
+        }
 
         startRepeatingTimer();
 
@@ -197,6 +213,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         mDrawer.closeDrawers();
+        if(manager.getBackStackEntryCount() == 1)
+            finish();
         super.onBackPressed();
     }
 }

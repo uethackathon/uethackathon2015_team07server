@@ -52,7 +52,7 @@ public class UpdateWidgetService extends Service {
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, clickIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.widget_progress, pendingIntent);
+            remoteViews.setOnClickPendingIntent(R.id.widget_img, pendingIntent);
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
         stopSelf();
